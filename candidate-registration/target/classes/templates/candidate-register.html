@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Candidate Registration</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+</head>
+<body>
+
+<h2>Candidate Registration</h2>
+
+<form th:action="@{/candidates/register}" th:object="${candidate}" method="post">
+
+    First Name:
+    <input type="text" th:field="*{firstName}" required><br><br>
+
+    Last Name:
+    <input type="text" th:field="*{lastName}" required><br><br>
+
+    Age:
+    <input type="number" th:field="*{age}" required><br><br>
+
+    Contact Number:
+    <input type="text" th:field="*{contactNumber}" required><br><br>
+
+    Email:
+    <input type="email" th:field="*{email}" required><br><br>
+
+    Designation:
+    <input type="text" th:field="*{designation}"><br><br>
+
+    Education:
+    <input type="text" th:field="*{education}"><br><br>
+
+    Languages Known:
+    <input type="text" th:field="*{languagesKnown}"><br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+
+</body>
+</html>

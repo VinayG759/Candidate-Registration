@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Successful</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	
+    
+</head>
+<body>
+
+<h2>🎉 Registration Successful</h2>
+<p>Complete payment to generate your ID card</p>
+
+
+<!-- Step 1 Referral Input -->
+<form onsubmit="event.preventDefault(); showQR();">
+    <input type="text" id="refId" placeholder="Enter Referral ID" required>
+    <button type="submit">Generate QR</button>
+</form>
+
+
+<!-- Step 2 Show QR + Timer -->
+<div id="qrBox">
+    <h3>Scan & Complete Payment</h3>
+    <img src="/images/paymentQR.jpg" alt="QR Payment">
+
+    <h3>QR valid for only 5 minutes</h3>
+    <div id="timer">05:00</div>
+
+    <button onclick="showVerify()">I have paid</button>
+</div>
+
+
+<!-- Step 3 Enter Transaction ID -->
+<div id="verifyBox">
+    <h3>Enter Transaction ID for verification</h3>
+
+    <input type="text" id="txnId" placeholder="Transaction ID" required>
+    <button onclick="startVerification()">Verify Payment</button>
+</div>
+
+
+<!-- Step 4 Success Message -->
+<div id="successMsg">
+    <h2 style="color:green;">🎉 Congratulations!</h2>
+    <h3>Your slot has been booked successfully!</h3>
+</div>
+
+
+<script>
+    let timerInterval;
+    let time = 300; // 5 minutes
+
+    function showQR(){
+        document.getElementById("qrBox").style.display="block";
+        startTimer();
+    }
+
+    function startTimer(){
+        timerInterval = setInterval(()=>{
+            let min = Math.floor(time/60);
+            let sec = time%60;
+            sec = sec<10? "0"+sec : sec;
+            document.getElementById("timer").innerHTML = min+":"+sec;
+            time--;
+
+            if(time<0){
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerHTML="Expired";
+                document.getElementById("qrBox").style.display="none";
+            }
+        },1000);
+    }
+
+    function showVerify(){
+        clearInterval(timerInterval); // ⛔ STOP timer when verifying
+        document.getElementById("verifyBox").style.display="block";
+    }
+
+    function startVerification(){
+        document.getElementById("verifyBox").innerHTML =
+        `<div><p>Verifying Payment...</p><div class="loader"></div></div>`;
+
+        setTimeout(()=>{
+            document.getElementById("verifyBox").style.display="none";
+            document.getElementById("successMsg").style.display="block";
+        },10000); // 10 sec verification
+    }
+</script>
+
+</body>
+</html>

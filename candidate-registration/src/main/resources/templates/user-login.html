@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+</head>
+<body>
+
+<h2>User Login</h2>
+
+<!-- Error Message -->
+<p th:if="${param.error}" style="color:red;">Incorrect Username or Password!</p>
+
+<form action="/user/login/process" method="post">
+
+    <label>Username:</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Password:</label><br>
+
+    <input type="password" id="password" name="password" required>
+    <button type="button" onclick="togglePassword()">Show/Hide</button>
+    <br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<br>
+<a href="/home">Back to Home</a>
+
+<script>
+    function togglePassword(){
+        let field = document.getElementById("password");
+        field.type = field.type === "password" ? "text" : "password";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Admin Login</h2>
+
+    <!-- Show error on wrong password -->
+    <p th:if="${param.error}" class="error">Invalid username or password
